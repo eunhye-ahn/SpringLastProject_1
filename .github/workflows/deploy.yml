@@ -22,13 +22,13 @@ jobs:
             sleep 3
         - name: Premove Old war
           run: |
-            rm -rf /home/sist/apache-tomcat-9.0.*/webapps/SpringLastProject_1.war
-            rm -rf /home/sist/apache-tomcat-9.0.*/webapps/SpringLastProject_1
+            rm -rf /home/sist/apache-tomcat-9.0.120/webapps/SpringLastProject_1.war
+            rm -rf /home/sist/apache-tomcat-9.0.120/webapps/SpringLastProject_1
         - name: Deploy War
           run: |
-            cp target/*.war /home/sist/apache-tomcat-9.0.*/webapps/SpringLastProject_1.war
+            cp target/*.war /home/sist/apache-tomcat-9.0.120/webapps/SpringLastProject_1.war
 
         - name: Tomcat start
           run: |
-            nohup  /home/sist/apache-tomcat-9.0.*/bin/startup.sh
+            nohup  /home/sist/apache-tomcat-9.0.120/bin/startup.sh
             sleep 5
