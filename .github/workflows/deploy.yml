@@ -5,14 +5,30 @@ on:
 jobs:
   deploy:
     runs-on: self-hosted
-  defults:
-    run:
-      working-directory: SpringLastProject_1
-      
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: Maven Build
-        run: mvn clean package -DskipTests
+    defaults:
+      run:
+        working-directory: SpringLastProject_1
         
+    steps:
+        - name: Checkout
+          uses: actions/checkout@v4
+    
+        - name: Maven Build
+          run: mvn clean package -DskipTests
+
+        - name: Stop Tomcat
+          run: |
+            /home/sist/apache-tomcat-9.0.*/bin/shutdown.sh || true
+            sleep 3
+        - name: Premove Old war
+          run: |
+            rm -rf /home/sist/apache-tomcat-9.0.*/webapps/SpringLastProject_1.war
+            rm -rf /home/sist/apache-tomcat-9.0.*/webapps/SpringLastProject_1
+        - name: Deploy War
+          run: |
+            cp target/*.war /home/sist/apache-tomcat-9.0.*/webapps/SpringLastProject_1.war
+
+        - name: Tomcat start
+          run: |
+            nohup  /home/sist/apache-tomcat-9.0.*/bin/startup.sh
+            sleep 5
