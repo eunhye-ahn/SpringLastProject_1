@@ -17,6 +17,8 @@ jobs:
           run: mvn clean package -DskipTests
 
         - name: Stop Tomcat
+          env:
+            RUNNER_TRACKING_ID: ""
           run: |
             /home/sist/apache-tomcat-9.0.*/bin/shutdown.sh || true
             sleep 3
